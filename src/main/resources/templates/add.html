@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/add}">
+    <table>
+        <thead>
+        <tr>
+            <td>
+                <h1>添加请假记录</h1>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>姓名：</td>
+            <td>
+                <input type="text" name="name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>请假时间：</td>
+            <td>
+                <input type="text" name="leaveTime"/>
+            </td>
+            <td>格式要求.yyyy-mm-dd</td>
+        </tr>
+        <tr>
+            <td>请假原因：</td>
+            <td>
+                <textarea name="reason"></textarea>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>
+                <input type="reset" value="返回"/>
+            </td>
+            <td>
+                <input type="submit" value="提交"/>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</form>
+</body>
+</html>
