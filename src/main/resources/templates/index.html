@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script>
+        let pageIndex = 1;
+        let totalPage = 0;
+
+        $(function () {
+            select()
+        })
+
+        function select() {
+            $.getJSON("/select/" + pageIndex + "/4", function (data) {
+                if (data != null) {
+                    $.each(data.records, function (i, e) {
+                        let tr = "<tr";
+                        if (i % 2 !== 0) {
+                            tr += " class='bgColor'";
+                        }
+                        tr += "><td>" + e.id
+                            + "</td><td>" + e.name
+                            + "</td><td>" + e.leaveTime
+                            + "</td><td>" + e.reason
+                            + "</td><td><a href='javascript:void(0)' onclick='del(" + e.id + ")' class='disa'>删除</a></td></tr>";
+                        pageIndex = e.current;
+                        totalPage = e.total;
+                        $("table").append(tr);
+                        $("span").text("第" + pageIndex + "页/共" + e.totalPage + "页");
+                    })
+                }
+            })
+        }
+
+        function del(id) {
+            location.href = "/delete/" + id;
+        }
+
+        function nextPage() {
+            pageIndex++;
+            select();
+        }
+
+        function pevPage() {
+            pageIndex--;
+            select();
+        }
+
+        function lastPage() {
+            pageIndex = totalPage;
+            select();
+        }
+    </script>
+    <style>
+        .disa {
+            text-decoration: none;
+        }
+
+        .bgColor {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <h1>请假记录列表</h1>
+    <a href="add.html" class="disa">添加请假记录</a>
+    <table>
+        <tr class="bgColor">
+            <th>编号</th>
+            <th>姓名</th>
+            <th>请假时间</th>
+            <th>请假原因</th>
+            <th>操作</th>
+        </tr>
+    </table>
+    <p>
+        <a href="javascript:void(0)" onclick="select()">首页</a>
+        <a href="javascript:void(0)" onclick="nextPage()">上一页</a>
+        <a href="javascript:void(0)" onclick="pevPage()">下一页</a>
+        <a href="javascript:void(0)" onclick="lastPage()">末页</a>
+        <span></span>
+    </p>
+</center>
+</body>
+</html>
